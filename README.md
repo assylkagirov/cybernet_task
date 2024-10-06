@@ -1,6 +1,6 @@
 # cybernet_task
 
-I did what I managed and it turned out, did a little test for her, checked the system. There may be and will be errors, but logically everything should be correct. 
+I did what I managed and it turned out, did a little test for system, checked the system. There may be and will be errors, but logically everything should be correct. 
 
 This is a remade version, the main version flew off because of my process and everything was lost. 
 
