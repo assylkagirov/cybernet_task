@@ -1,0 +1,26 @@
+version: "3.1"
+
+stories:
+  - story: "Позитивный сценарий подтверждения ИИН"
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "Мой ИИН 123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: affirm
+      - action: utter_process_complete
+
+  - story: "Отрицательный сценарий с полной проверкой ИИН"
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "Мой ИИН 123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: deny
+      - action: utter_confirm_first_six_digits
+      - intent: affirm
+      - action: utter_confirm_last_six_digits
+      - intent: affirm
+      - action: utter_confirm_iin
+      - intent: affirm
+      - action: utter_process_complete

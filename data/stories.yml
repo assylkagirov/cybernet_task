@@ -1,0 +1,50 @@
+version: "3.1"
+
+stories:
+  - story: simple_iin_confirmation
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: affirm
+      - action: utter_process_complete
+
+  - story: iin_confirmation_with_deny
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: deny
+      - action: utter_confirm_first_six_digits
+      - intent: affirm
+      - action: utter_confirm_last_six_digits
+      - intent: affirm
+      - action: utter_confirm_iin
+      - intent: affirm
+      - action: utter_process_complete
+
+  - story: iin_partial_confirmation_first_denied
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: deny
+      - action: utter_confirm_first_six_digits
+      - intent: deny
+      - action: utter_ask_iin  
+
+  - story: iin_partial_confirmation_last_denied
+    steps:
+      - intent: provide_iin
+        entities:
+          - iin: "123 123 123 123"
+      - action: utter_confirm_iin
+      - intent: deny
+      - action: utter_confirm_first_six_digits
+      - intent: affirm
+      - action: utter_confirm_last_six_digits
+      - intent: deny
+      - action: utter_ask_iin  
