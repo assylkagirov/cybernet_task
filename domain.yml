@@ -3,37 +3,68 @@ version: "3.1"
 intents:
   - provide_iin
   - affirm
-  - deny
-
+  - deny  
+  
 entities:
   - iin
+  - first_six
+  - last_six
 
 slots:
   iin:
     type: text
     mappings:
-    - type: from_entity
-      entity: iin
+      - type: from_entity
+        entity: iin
+  first_six:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: iin
+  last_six:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: iin
 
 responses:
   utter_ask_iin:
     - text: "Пожалуйста, введите ваш ИИН в формате 123 123 123 123."
-
   utter_confirm_iin:
     - text: "Ваш ИИН «{iin}», верно?"
-
+      buttons:
+        - title: "Да"
+          payload: "/affirm"
+        - title: "Нет"
+          payload: "/deny"
+  
   utter_confirm_first_six_digits:
-    - text: "Хорошо, тогда давайте проверим первые 6 цифр? «{iin[:6]}» Верно?"
+    - text: "Хорошо, давайте проверим первые 6 цифр: «{first_six}». Верно?"
+      buttons:
+        - title: "Да"
+          payload: "/affirm"
+        - title: "Нет"
+          payload: "/deny"
 
   utter_confirm_last_six_digits:
-    - text: "Хорошо, остальные 6 цифр? «{iin[6:]}» Верно?"
+    - text: "Хорошо, давайте проверим последние 6 цифр: «{last_six}». Верно?"
+      buttons:
+        - title: "Да"
+          payload: "/affirm"
+        - title: "Нет"
+          payload: "/deny"
+  
+  utter_request_first_six_digits_format:
+    - text: "Продиктуйте первые 6 цифр двузначными значениями. Например: 12-34-56."
+
+  utter_request_last_six_digits_format:
+    - text: "Продиктуйте последние 6 цифр двузначными значениями. Например: 12-34-56."
 
   utter_process_complete:
     - text: "Ваш ИИН подтвержден. Спасибо!"
 
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
 
-regex:
-  iin: "(\\d{3} \\d{3} \\d{3} \\d{3})|(\\d{12})"
+actions:
+  - action_handle_incorrect_iin
+  - action_check_first_six_digits
+  - action_check_last_six_digits
