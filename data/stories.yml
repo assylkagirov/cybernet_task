@@ -1,5 +1,3 @@
-version: "3.1"
-
 stories:
   - story: simple_iin_confirmation
     steps:
@@ -34,7 +32,7 @@ stories:
       - intent: deny
       - action: utter_confirm_first_six_digits
       - intent: deny
-      - action: utter_ask_iin  
+      - action: utter_ask_iin
 
   - story: iin_partial_confirmation_last_denied
     steps:
@@ -47,4 +45,4 @@ stories:
       - intent: affirm
       - action: utter_confirm_last_six_digits
       - intent: deny
-      - action: utter_ask_iin  
+      - action: utter_ask_iin
